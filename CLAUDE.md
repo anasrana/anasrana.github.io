@@ -60,9 +60,9 @@ Implementation notes (verify each against current Quarto documentation before re
 - A sans face is used only for tiny UI labels if needed; default to the serif everywhere.
 - Colours: near-black text on off-white (Tufte uses `#fffff8` and `#111`); one muted secondary text colour; links underlined lightly, not coloured blocks.
 - Headings: `h1` page title in roman, `h2` and `h3` in italic, normal weight. No bold headings.
-- `.newthought` class (small caps) for the opening words of a section.
+- `.newthought` class for the opening words of a section: small caps in Tufte red (`tufte-red` in `_brand.yml`), as Anas requested. Markdown: `[Opening words]{.newthought}`.
 - Maths via MathJax (Quarto default). Check that MathJax output inherits the text colour.
-- Dark mode: not required at launch. If added later, keep it as a separate theme and keep contrast at WCAG AA.
+- Dark mode: not required at launch (Anas asked; told it can follow Phase 3). If added later, keep it as a separate theme and keep contrast at WCAG AA.
 
 ## 6. Repository structure (target)
 
@@ -150,3 +150,18 @@ quarto render               # full build into _site/
 gh repo create anasrana/anasrana.github.io --public --source=. --push   # first push, if gh CLI is used
 gh run watch                # follow the deploy workflow
 ```
+
+## 11. Status and implementation notes (keep up to date)
+
+Status (2026-11-02): Phases 0-2 done and deployed. Next: Phase 3 (layout). Anas still to review `/typography-test.html`.
+
+- **Repository**: the 2019 `anasrana.github.io` repo was reused (force-pushed). Default branch `main`; `master` deleted. Pages `build_type` is `workflow`; the `github-pages` environment's deployment branch policy allows `main` only. `.git` is excluded from Dropbox sync.
+- **Rendering**: `_quarto.yml` sets `project.render: ["*.qmd"]` so `CLAUDE.md` and `todo.md` are never published. New pages must be `.qmd`.
+- **Theme**: `theme: [brand, brand/tufte.scss]`. `$brand-*` palette variables exist only in the SCSS **rules** layer, not defaults; `tufte.scss` aliases them as `$tufte-*` at the top of its rules section.
+- **Fonts**: `brand/fonts/et-book/` holds three woff2 files (roman, italic, bold) from `edwardtufte/et-book`; provenance in its `README.md`. Quarto copies them into `site_libs/bootstrap/brand/...`.
+- **Colours** (contrast on `#fffff8`): ink `#111111` 18.8:1, muted `#5e5e5a` 6.5:1, tufte-red `#a51c1c` 7.5:1.
+- **Dark stylesheet**: Quarto emits an unused `bootstrap-dark-*.css`; with no toggle the site stays light even in OS dark mode (verified).
+- **Temporary files** to remove in Phase 6: `typography-test.qmd`, `images/typography-test-figure.svg`.
+- **Visual checks**: serve `_site/` (`python3 -m http.server 8765` from `_site/`) and run `node tools/shot.mjs http://localhost:8765/page.html 375 out.png`. Plain `chrome --headless --window-size=375,...` is unreliable (minimum window width clips the page); use the script. Wait for MathJax before judging maths.
+- **Action versions** (checked 2026-11-02): checkout v7, quarto-actions/setup v2, configure-pages v6, upload-pages-artifact v5, deploy-pages v5.
+- **Network**: quarto.org is blocked for WebFetch; read Quarto docs from `raw.githubusercontent.com/quarto-dev/quarto-web/main/docs/...` with curl instead. `gh api` occasionally fails to connect; plain `curl` to the API or `git clone` works.
