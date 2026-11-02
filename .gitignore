@@ -6,3 +6,5 @@
 # OS and editor
 .DS_Store
 /.luarc.json
+
+**/*.quarto_ipynb
