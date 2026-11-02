@@ -1,0 +1,13 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+
+website:
+  title: "Anas A Rana"
+  site-url: https://anasrana.github.io
+
+format:
+  html:
+    toc: false
