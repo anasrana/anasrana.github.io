@@ -32,11 +32,20 @@ Claude Code: work through these phases in order. Tick items (`[x]`) as you compl
 
 ## Phase 2: Brand and typography
 
-- [ ] Download ET Book (MIT licence) into `brand/fonts/et-book/` and include its licence file.
-- [ ] Write `_brand.yml` with fonts and colours (check the current schema in the Quarto docs first).
-- [ ] Write `brand/tufte.scss`: base font size and line-height, off-white background, text colours, italic `h2`/`h3`, `.newthought` small caps, light link underlines, thin rules, sidenote and margin-note styling, figure captions.
-- [ ] Wire both into `_quarto.yml` (`format: html: theme: [cosmo or none, brand/tufte.scss]`, or as the docs recommend with `_brand.yml`).
+- [x] Download ET Book (MIT licence) into `brand/fonts/et-book/` and include its licence file.
+- [x] Write `_brand.yml` with fonts and colours (check the current schema in the Quarto docs first).
+- [x] Write `brand/tufte.scss`: base font size and line-height, off-white background, text colours, italic `h2`/`h3`, `.newthought` small caps, light link underlines, thin rules, sidenote and margin-note styling, figure captions.
+- [x] Wire both into `_quarto.yml` (`format: html: theme: [cosmo or none, brand/tufte.scss]`, or as the docs recommend with `_brand.yml`).
 - [ ] Build a temporary `typography-test.qmd` exercising headings, a long paragraph, footnotes as sidenotes, a margin figure, a block quote, a list, inline and display maths, a code block and a table. Review it in preview, then exclude it from the site (or delete it) before Phase 6.
+  - Built (`typography-test.qmd` + `images/typography-test-figure.svg`), checked at 1280px and 375px (no horizontal scroll). **(Anas)** review it at `/typography-test.html`; tick when happy.
+
+## Phase 2 notes
+
+- `.newthought` is small caps in Tufte red (`tufte-red: #a51c1c` in `_brand.yml`, 7.5:1 contrast), as requested by Anas. Use `[Opening words]{.newthought}`.
+- Brand palette variables (`$brand-*`) are not available in the SCSS defaults layer, only in rules; `tufte.scss` aliases them at the top of the rules section.
+- ET Book has no true small caps, so the browser synthesises them (same as Tufte CSS).
+- Quarto emits an unused `bootstrap-dark` stylesheet; with no toggle the site stays light even when the OS is in dark mode (checked).
+- Dark mode: not at launch (CLAUDE.md section 5). `_brand.yml` supports `light`/`dark` colour pairs, so it can be added later with a toggle in the sidebar.
 
 ## Phase 3: Layout (Option B)
 

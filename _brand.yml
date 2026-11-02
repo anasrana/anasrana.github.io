@@ -1,0 +1,44 @@
+# Brand: fonts and colours shared by the website (and later the practicals
+# book and lecture slides). Tufte-specific rules live in brand/tufte.scss.
+# Schema: https://posit-dev.github.io/brand-yml/
+
+meta:
+  name: Anas A Rana
+
+color:
+  palette:
+    ink: "#111111"        # body text
+    paper: "#fffff8"      # Tufte off-white
+    muted: "#5e5e5a"      # secondary text: captions, dates, inactive nav (6.5:1 on paper, WCAG AA)
+    rule: "#d8d8cf"       # thin rules
+    tufte-red: "#a51c1c"  # opening phrases (.newthought), as in Tufte's books (7.5:1 on paper)
+  foreground: ink
+  background: paper
+  primary: ink
+  secondary: muted
+
+typography:
+  fonts:
+    - family: ET Book
+      source: file
+      files:
+        - path: brand/fonts/et-book/et-book-roman.woff2
+          weight: 400
+          style: normal
+        - path: brand/fonts/et-book/et-book-italic.woff2
+          weight: 400
+          style: italic
+        - path: brand/fonts/et-book/et-book-bold.woff2
+          weight: 700
+          style: normal
+  base:
+    family: ET Book
+    size: 1.2rem
+    line-height: 1.5
+  headings:
+    family: ET Book
+    weight: 400
+    color: ink
+  link:
+    color: ink
+    decoration: underline

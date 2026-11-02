@@ -1,0 +1,280 @@
+// Tufte-style typography layered on Quarto's Bootstrap theme and _brand.yml.
+// Fonts and colours come from _brand.yml (as $brand-* variables); this file
+// only holds the Tufte rules. References: https://edwardtufte.github.io/tufte-css/
+
+/*-- scss:defaults --*/
+
+$tufte-serif: "ET Book", "EB Garamond", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+
+$font-family-sans-serif: $tufte-serif;
+$font-family-base: $tufte-serif;
+$headings-font-family: $tufte-serif;
+$headings-font-weight: 400;
+$font-weight-bold: 700;
+
+$code-bg: transparent;
+
+/*-- scss:rules --*/
+
+// Brand palette (from _brand.yml). These are only defined once the brand
+// layer has been compiled, so they are aliased here rather than in defaults.
+$tufte-ink: $brand-ink;
+$tufte-paper: $brand-paper;
+$tufte-muted: $brand-muted;
+$tufte-rule: $brand-rule;
+$tufte-red: $brand-tufte-red;
+
+body {
+  font-family: $tufte-serif;
+  color: $tufte-ink;
+  background-color: $tufte-paper;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// Headings: h1 roman, h2 and h3 italic, never bold.
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+#title-block-header .title {
+  font-family: $tufte-serif;
+  font-weight: 400;
+  color: $tufte-ink;
+  line-height: 1.2;
+}
+
+h1, .h1, #title-block-header .title {
+  font-size: 2.4rem;
+  font-style: normal;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+h2, .h2 {
+  font-size: 1.75rem;
+  font-style: italic;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+h3, .h3 {
+  font-size: 1.4rem;
+  font-style: italic;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+h4, h5, h6 {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+#title-block-header .subtitle,
+#title-block-header .description {
+  font-style: italic;
+  color: $tufte-muted;
+}
+
+// Opening words of a section: small caps in Tufte red.
+// Markdown: [The opening words]{.newthought} of the paragraph.
+.newthought {
+  font-variant: small-caps;
+  font-size: 1.15em;
+  letter-spacing: 0.04em;
+  color: $tufte-red;
+}
+
+// Links: text colour with a thin underline, darker on hover.
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  text-decoration-color: rgba($tufte-ink, 0.35);
+
+  &:hover {
+    color: inherit;
+    text-decoration-color: $tufte-ink;
+  }
+}
+
+// Visible keyboard focus.
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid $tufte-red;
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+// Thin rules.
+hr {
+  border: 0;
+  border-top: 1px solid $tufte-rule;
+  opacity: 1;
+  margin: 2rem 0;
+}
+
+// Block quotes: indented, no coloured bar.
+blockquote,
+.blockquote {
+  border-left: none;
+  margin: 1.5rem 2rem;
+  padding: 0;
+  font-size: 1em;
+  color: $tufte-ink;
+
+  p { margin-bottom: 0.5rem; }
+
+  footer {
+    font-size: 0.95em;
+    text-align: right;
+    color: $tufte-muted;
+  }
+}
+
+// Sidenotes, margin notes and margin figures.
+.column-margin,
+.margin-caption,
+aside,
+div.footnotes,
+.footnotes {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: $tufte-ink;
+}
+
+.column-margin p,
+aside p {
+  margin-bottom: 0.75rem;
+}
+
+// Sidenote numbers: small, no bold, no blue.
+a.footnote-ref,
+.column-margin sup,
+.footnotes sup {
+  text-decoration: none;
+  font-size: 0.7em;
+  font-variant-numeric: lining-nums;
+}
+
+a.footnote-ref sup {
+  font-size: 1em;
+}
+
+// Captions.
+figcaption,
+.figure-caption,
+.quarto-float-caption,
+.table-caption,
+caption {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: $tufte-muted;
+  font-style: normal;
+}
+
+.quarto-figure-center > figure > figcaption,
+figure > figcaption,
+caption,
+.table-caption,
+.quarto-float-caption {
+  text-align: left;
+}
+
+// Tables: booktabs-style thin rules, lining figures for alignment.
+table {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.table {
+  --bs-table-bg: transparent;
+  color: $tufte-ink;
+
+  > :not(caption) > * > * {
+    border-bottom-width: 0;
+    padding: 0.3rem 0.6rem;
+  }
+
+  thead {
+    border-top: 1px solid $tufte-ink;
+    border-bottom: 1px solid $tufte-ink;
+  }
+
+  > tbody {
+    border-top: none;
+  }
+
+  tbody tr:last-child {
+    border-bottom: 1px solid $tufte-ink;
+  }
+
+  th {
+    font-weight: 400;
+    font-style: italic;
+  }
+}
+
+// Code: monospace, slightly smaller, a thin left rule instead of a box.
+code {
+  font-size: 0.85em;
+  color: $tufte-ink;
+  background: transparent;
+  padding: 0;
+}
+
+div.sourceCode {
+  background-color: transparent;
+  border: none;
+  border-left: 1px solid $tufte-rule;
+  border-radius: 0;
+  padding-left: 1rem;
+}
+
+div.sourceCode pre.sourceCode,
+pre:not(.mermaid-js) {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+pre:not(.sourceCode):not(.mermaid-js) {
+  border-left: 1px solid $tufte-rule;
+  padding-left: 1rem;
+}
+
+pre code,
+div.sourceCode code {
+  font-size: 0.8em;
+  line-height: 1.45;
+}
+
+// Bold is rare in Tufte text; keep it available but not heavy.
+strong, b {
+  font-weight: 700;
+}
+
+// Maths follows the text colour.
+mjx-container,
+.MathJax,
+.math {
+  color: inherit;
+}
+
+mjx-container[display="true"] {
+  margin: 1.25rem 0;
+}
+
+// Lists: Tufte spacing.
+ul, ol {
+  padding-left: 1.5rem;
+
+  li { margin-bottom: 0.35rem; }
+}
+
+::selection {
+  background: rgba($tufte-red, 0.15);
+}
