@@ -14,15 +14,21 @@ Claude Code: work through these phases in order. Tick items (`[x]`) as you compl
 - [x] Initialise the git repository in this folder with default branch `main`.
 - [x] Add `.gitignore` (`_site/`, `.quarto/`, `.DS_Store`, `*_files/` scratch folders, `/.luarc.json`).
 
+## Phase 1 notes
+
+- `_quarto.yml` restricts rendering to `*.qmd` so `todo.md` and `CLAUDE.md` are not published.
+- Action versions (checked 2026-11-02): checkout v7, quarto-actions/setup v2, configure-pages v6, upload-pages-artifact v5, deploy-pages v5.
+
 ## Phase 1: Scaffold and first deploy (deploy early, then iterate)
 
-- [ ] Create a minimal Quarto website: `_quarto.yml` (`project: type: website`, output dir `_site`), `index.qmd` with a one-line placeholder.
-- [ ] Add `.github/workflows/publish.yml` as specified in `CLAUDE.md` section 8 (render with Quarto, deploy with `upload-pages-artifact` + `deploy-pages`, `workflow_dispatch` enabled).
-- [ ] Render locally (`quarto render`) and confirm `_site/index.html` exists.
-- [ ] Commit and create/push the GitHub repository `anasrana/anasrana.github.io` (public).
-- [ ] **(Anas)** In the repository: Settings > Pages > Build and deployment > Source = **GitHub Actions**.
-- [ ] Re-run the workflow if needed; confirm `https://anasrana.github.io/` shows the placeholder page.
-- [ ] Confirm `https://anasrana.github.io/ems-practicals/` still loads (it should be unaffected).
+- [x] Create a minimal Quarto website: `_quarto.yml` (`project: type: website`, output dir `_site`), `index.qmd` with a one-line placeholder.
+- [x] Add `.github/workflows/publish.yml` as specified in `CLAUDE.md` section 8 (render with Quarto, deploy with `upload-pages-artifact` + `deploy-pages`, `workflow_dispatch` enabled).
+- [x] Render locally (`quarto render`) and confirm `_site/index.html` exists.
+- [x] Commit and create/push the GitHub repository `anasrana/anasrana.github.io` (public).
+- [x] **(Anas)** In the repository: Settings > Pages > Build and deployment > Source = **GitHub Actions**.
+  - Done via the API instead (build_type=workflow). Also allowed `main` and removed `master` in the `github-pages` environment's deployment branch policy, set `main` as default branch, deleted `master`.
+- [x] Re-run the workflow if needed; confirm `https://anasrana.github.io/` shows the placeholder page.
+- [x] Confirm `https://anasrana.github.io/ems-practicals/` still loads (it should be unaffected).
 
 ## Phase 2: Brand and typography
 
@@ -84,8 +90,8 @@ Claude Code: work through these phases in order. Tick items (`[x]`) as you compl
 
 ## Needs input from Anas
 
-- [ ] **Existing `anasrana.github.io` repo (blocks Phase 1 push).** Recommended: reuse it. Push the new `main` with `--force` (replacing the 2019 placeholder; its history stays recoverable from a local backup clone), make `main` the default branch, delete `master`, and switch Pages source to GitHub Actions. Alternative: delete the repo on GitHub and recreate it. Confirm which.
-- [ ] This folder lives in Dropbox. Git repositories in Dropbox can be corrupted by sync conflicts in `.git/`; consider excluding `.git` from sync or moving the working copy outside Dropbox (GitHub is then the backup).
+- [x] Existing `anasrana.github.io` repo: reuse it, no backup (Anas, 2026-11-02). Old 2019 placeholder replaced.
+- [x] Dropbox: Anas has excluded `.git` from sync.
 - [ ] Profile photo (square, at least 400px).
 - [ ] Email address to display, Google Scholar URL, ORCID iD, any other profile links.
 - [ ] Short bio (or approval of a drafted one).
