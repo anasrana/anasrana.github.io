@@ -10,4 +10,5 @@ website:
 
 format:
   html:
+    theme: [brand, brand/tufte.scss]
     toc: false
