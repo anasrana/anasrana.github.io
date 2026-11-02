@@ -1,0 +1,8 @@
+# Quarto build output and cache
+/_site/
+/.quarto/
+*_files/
+
+# OS and editor
+.DS_Store
+/.luarc.json
