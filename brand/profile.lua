@@ -1,6 +1,8 @@
--- {{< profile >}}: the profile block at the top of the sidebar, built from
--- `person` in _profile.yml (loaded for every page through metadata-files).
--- Photo, frog mark and name, role, then the contact links.
+-- Sidebar blocks built from `person` in _profile.yml (loaded for every page
+-- through metadata-files):
+--   {{< profile >}}        photo, frog mark and name, title (sidebar header)
+--   {{< profile links >}}  contact links and the light/dark switch (sidebar
+--                          footer, anchored to the bottom)
 
 local function str(v)
   return v and pandoc.utils.stringify(v) or ""
@@ -19,9 +21,26 @@ local function logo_svg()
   return (svg:gsub("<title>.-</title>", ""):gsub(' role="img"', ' aria-hidden="true" focusable="false"'))
 end
 
-local function profile(_, _, meta)
+local function links_block(p)
+  local items = {}
+  for _, l in ipairs(p.links or {}) do
+    local text, href = esc(str(l.text)), str(l.href)
+    if href:match("^TODO") then
+      items[#items + 1] = string.format('<li><span class="profile-todo" title="%s">%s</span></li>', esc(href), text)
+    else
+      items[#items + 1] = string.format('<li><a href="%s">%s</a></li>', esc(href), text)
+    end
+  end
+  -- Light/dark switch: calls Quarto's own toggle; the label follows the mode.
+  items[#items + 1] = '<li><button type="button" class="profile-mode" onclick="window.quartoToggleColorScheme(); return false;">'
+    .. '<span class="to-dark">Dark mode</span><span class="to-light">Light mode</span></button></li>'
+  return pandoc.RawBlock("html", '<ul class="profile-links">' .. table.concat(items) .. "</ul>")
+end
+
+local function profile(args, _, meta)
   local p = meta.person
   if not p then return pandoc.Null() end
+  if args[1] and str(args[1]) == "links" then return links_block(p) end
 
   local out = { '<div class="profile">' }
 
@@ -35,25 +54,9 @@ local function profile(_, _, meta)
   out[#out + 1] = string.format('<p class="profile-name"><a href="/"><span class="profile-logo">%s</span>%s</a></p>',
     logo_svg(), esc(str(p.name)))
 
-  local role = {}
-  for _, k in ipairs({ "title", "department", "institution" }) do
-    if str(p[k]) ~= "" then role[#role + 1] = esc(str(p[k])) end
-  end
-  if #role > 0 then
-    out[#out + 1] = '<p class="profile-role">' .. table.concat(role, "<br>") .. "</p>"
-  end
-
-  if p.links and #p.links > 0 then
-    local links = {}
-    for _, l in ipairs(p.links) do
-      local text, href = esc(str(l.text)), str(l.href)
-      if href:match("^TODO") then
-        links[#links + 1] = string.format('<li><span class="profile-todo" title="%s">%s</span></li>', esc(href), text)
-      else
-        links[#links + 1] = string.format('<li><a href="%s">%s</a></li>', esc(href), text)
-      end
-    end
-    out[#out + 1] = '<ul class="profile-links">' .. table.concat(links) .. "</ul>"
+  -- Only the title here; department and institution are on the About page.
+  if str(p.title) ~= "" then
+    out[#out + 1] = '<p class="profile-role">' .. esc(str(p.title)) .. "</p>"
   end
 
   out[#out + 1] = "</div>"

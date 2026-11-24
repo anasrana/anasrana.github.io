@@ -435,8 +435,9 @@ h2.anchored, h3.anchored, h4.anchored {
 
 
 
-// Sidebar (Option B): profile block from _profile.yml (brand/profile.lua),
-// a thin rule carrying the light/dark toggle, then the navigation.
+// Sidebar (Option B), from _profile.yml via brand/profile.lua: photo, name
+// and title; the navigation straight after; contact links and the
+// light/dark switch anchored to the bottom in small grey capitals.
 #quarto-sidebar {
   font-family: $tufte-serif;
   color: $tufte-ink;
@@ -447,7 +448,17 @@ h2.anchored, h3.anchored, h4.anchored {
   #quarto-sidebar {
     border-right: 1px solid $tufte-rule;
     padding-right: 1.25rem;
+    // Full viewport height, so the footer (links) can sit at the bottom.
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-height: 100vh;
+    padding-bottom: 1.5rem;
   }
+
+  #quarto-sidebar .quarto-sidebar-footer { margin-top: auto; }
 
   // Anchor the layout to the left edge. Quarto centres the floating-sidebar
   // grid with flexible columns on both sides; here the sidebar, body and
@@ -505,64 +516,62 @@ h2.anchored, h3.anchored, h4.anchored {
   font-size: 0.85rem;
   line-height: 1.35;
   color: $tufte-muted;
-  margin: 0 0 0.8rem;
+  margin: 0;
 }
+
+// Contact links and the light/dark switch: small capitals in dark grey.
+.quarto-sidebar-footer { padding-top: 1.5rem; }
 
 .profile-links {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $tufte-muted;
 
   li { margin: 0; }
 
   a {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.15em;
-    text-decoration-color: rgba($tufte-ink, 0.35);
+    color: $tufte-muted;
+    text-decoration: none;
+
+    &:hover { color: $tufte-ink; }
   }
 }
 
 // Links still to be supplied (href "TODO..." in _profile.yml).
 .profile-todo {
-  color: $tufte-muted;
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: help;
 }
 
-// Quarto's own title row: hide the duplicate name, keep the toggle, and
-// use the row as the thin rule between profile and navigation.
-#quarto-sidebar .sidebar-header {
-  border-top: 1px solid $tufte-rule;
-  margin-top: 0.9rem !important;
-  padding-top: 0 !important;
-  padding-right: 0 !important;
+.profile-mode {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover { color: $tufte-ink; }
 }
 
-#quarto-sidebar .sidebar-title {
-  display: flex;
-  justify-content: flex-end;
-  min-height: 0;
-  margin-bottom: 0.2rem !important;
+// The label names the mode it switches to.
+body.quarto-light .profile-mode .to-light,
+body.quarto-dark .profile-mode .to-dark { display: none; }
 
-  > a { display: none; }
-  .sidebar-tools-main { margin: 0 !important; padding: 0; }
-  .quarto-color-scheme-toggle { padding: 0.2rem 0 0 !important; line-height: 1; height: auto; }
-}
-
-.quarto-color-scheme-toggle {
-  color: $tufte-muted !important;
-  font-size: 0.8rem;
-  opacity: 0.7;
-
-  &:hover { opacity: 1; }
-}
+// Quarto's own title row (duplicate name and its icon toggle) is replaced
+// by the profile block and the switch above.
+#quarto-sidebar .sidebar-header { display: none !important; }
 
 // Navigation: other pages in grey, the current page in the text colour.
 #quarto-sidebar .sidebar-menu-container {
-  padding-top: 0.2rem !important;
+  padding-top: 0.6rem !important;
   padding-right: 0 !important;
 
   ul { margin-top: 0 !important; }
