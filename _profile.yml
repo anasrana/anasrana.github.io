@@ -1,0 +1,23 @@
+# The single source of profile data. The sidebar (brand/profile.lua, via the
+# {{< profile >}} shortcode) and any page that needs these details read them
+# from here; edit nothing else to change them.
+#
+# A link whose href starts with "TODO" is shown as a greyed placeholder.
+# Delete a link to remove it from the sidebar; add one to show it.
+
+person:
+  name: "Anas A Rana"
+  title: "Associate Professor in Statistical Machine Learning"
+  department: "Department of Cancer and Genomic Sciences"
+  institution: "University of Birmingham"
+  photo: images/profile.jpg
+  photo-alt: "Portrait of Anas A Rana"
+  links:
+    - text: Email
+      href: "TODO(Anas): mailto:address"
+    - text: Google Scholar
+      href: "TODO(Anas): Google Scholar profile URL"
+    - text: ORCID
+      href: "TODO(Anas): https://orcid.org/0000-..."
+    - text: GitHub
+      href: "https://github.com/anasrana"

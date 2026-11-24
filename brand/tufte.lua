@@ -7,6 +7,7 @@
 --   4. A block quote that opens with a quotation mark hangs that mark
 --      outside the text edge.
 --   5. Code blocks are labelled with their language (shown in the margin).
+--   6. A compact profile header for narrow screens (see brand/title-block.html).
 
 local tadpole
 
@@ -85,6 +86,51 @@ local function label_code(el)
   return pandoc.Div({ el }, pandoc.Attr("", { "code-lang" }, { ["data-lang"] = name }))
 end
 
+-- 6. Compact profile header for narrow screens --------------------------------
+-- Built from `person` in _profile.yml and placed above the page title by
+-- brand/title-block.html; hidden on wide screens, where the sidebar shows it.
+
+local function esc(s)
+  return (s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;"):gsub('"', "&quot;"))
+end
+
+local logo
+
+local function read_logo()
+  local f = io.open(quarto.project.directory .. "/brand/logo/logo.svg")
+  if not f then return nil end
+  local svg = f:read("a"):gsub("%s+$", "")
+  f:close()
+  return (svg:gsub("<title>.-</title>", ""):gsub(' role="img"', ' aria-hidden="true" focusable="false"'))
+end
+
+local function mobile_profile(meta)
+  local p = meta.person
+  if not p then return nil end
+  local str = function(v) return v and pandoc.utils.stringify(v) or "" end
+  local out = { '<div class="mobile-profile">' }
+  if str(p.photo) ~= "" then
+    out[#out + 1] = string.format('<a href="/"><img src="/%s" alt="%s" width="48" height="48"></a>',
+      esc(str(p.photo)), esc(str(p["photo-alt"])))
+  end
+  out[#out + 1] = string.format('<div><p class="mobile-name"><a href="/"><span class="profile-logo">%s</span>%s</a></p>',
+    logo or "", esc(str(p.name)))
+  if p.links and #p.links > 0 then
+    local links = {}
+    for _, l in ipairs(p.links) do
+      local text, href = esc(str(l.text)), str(l.href)
+      if href:match("^TODO") then
+        links[#links + 1] = string.format('<span class="profile-todo" title="%s">%s</span>', esc(href), text)
+      else
+        links[#links + 1] = string.format('<a href="%s">%s</a>', esc(href), text)
+      end
+    end
+    out[#out + 1] = '<p class="mobile-links">' .. table.concat(links, " · ") .. "</p>"
+  end
+  out[#out + 1] = "</div></div>"
+  return pandoc.MetaBlocks({ pandoc.RawBlock("html", table.concat(out, "")) })
+end
+
 -- 2 and 3. Tadpole marks ------------------------------------------------------
 
 local function append_endmark(blocks)
@@ -109,6 +155,8 @@ end
 function Pandoc(doc)
   if not quarto.doc.is_format("html") then return doc end
   tadpole = read_tadpole()
+  logo = read_logo()
+  doc.meta["mobile-profile"] = mobile_profile(doc.meta)
 
   doc.blocks = doc.blocks:walk(acronyms)
   doc.blocks = doc.blocks:walk({ BlockQuote = hang_first_quote })

@@ -9,11 +9,33 @@ project:
 website:
   title: "Anas A Rana"
   site-url: https://anasrana.github.io
+  search: false
+  # Left profile sidebar (Option B). The profile block comes from _profile.yml.
+  sidebar:
+    style: floating
+    logo: false
+    border: false
+    header: "{{< profile >}}"
+    contents:
+      - text: About
+        href: index.qmd
+      - research.qmd
+      - publications.qmd
+      - teaching.qmd
+      - group.qmd
+      - news.qmd
+      - cv.qmd
   # Colophon C (chosen 2026-11-24). The year is fixed text: update it in January.
   page-footer:
     left: |
-      Anas A Rana · University of Birmingham · 2026  
+      {{< meta person.name >}} · {{< meta person.institution >}} · 2026  
       *Set in ET Book. Built with Quarto, hosted on GitHub Pages ([source](https://github.com/anasrana/anasrana.github.io)).*
+
+metadata-files:
+  - _profile.yml
+
+shortcodes:
+  - brand/profile.lua
 
 format:
   html:
@@ -22,7 +44,16 @@ format:
       dark: [brand, brand/tufte-dark.scss, brand/tufte.scss]
     respect-user-color-scheme: true
     toc: false
+    page-layout: article
+    # Columns at 17px text: sidebar, body about 36em, margin about 13em.
+    grid:
+      sidebar-width: 210px
+      body-width: 620px
+      margin-width: 230px
+      gutter-width: 2rem
     code-copy: false
     include-in-header: brand/icons.html
+    template-partials:
+      - brand/title-block.html
     filters:
       - brand/tufte.lua
