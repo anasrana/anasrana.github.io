@@ -1,8 +1,8 @@
 -- Sidebar blocks built from `person` in _profile.yml (loaded for every page
 -- through metadata-files):
 --   {{< profile >}}        photo, frog mark and name, title (sidebar header)
---   {{< profile links >}}  contact links and the light/dark switch (sidebar
---                          footer, anchored to the bottom)
+--   {{< profile links >}}  contact links (sidebar footer, anchored to the
+--                          bottom)
 
 local function str(v)
   return v and pandoc.utils.stringify(v) or ""
@@ -31,9 +31,6 @@ local function links_block(p)
       items[#items + 1] = string.format('<li><a href="%s">%s</a></li>', esc(href), text)
     end
   end
-  -- Light/dark switch: calls Quarto's own toggle; the label follows the mode.
-  items[#items + 1] = '<li><button type="button" class="profile-mode" onclick="window.quartoToggleColorScheme(); return false;">'
-    .. '<span class="to-dark">Dark mode</span><span class="to-light">Light mode</span></button></li>'
   return pandoc.RawBlock("html", '<ul class="profile-links">' .. table.concat(items) .. "</ul>")
 end
 

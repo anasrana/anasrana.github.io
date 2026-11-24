@@ -436,8 +436,8 @@ h2.anchored, h3.anchored, h4.anchored {
 
 
 // Sidebar (Option B), from _profile.yml via brand/profile.lua: photo, name
-// and title; the navigation straight after; contact links and the
-// light/dark switch anchored to the bottom in small grey capitals.
+// and title (light/dark toggle at the top right); the navigation straight
+// after; contact links anchored to the bottom in small grey capitals.
 #quarto-sidebar {
   font-family: $tufte-serif;
   color: $tufte-ink;
@@ -519,7 +519,7 @@ h2.anchored, h3.anchored, h4.anchored {
   margin: 0;
 }
 
-// Contact links and the light/dark switch: small capitals in dark grey.
+// Contact links: small capitals in dark grey.
 .quarto-sidebar-footer { padding-top: 1.5rem; }
 
 .profile-links {
@@ -548,26 +548,35 @@ h2.anchored, h3.anchored, h4.anchored {
   cursor: help;
 }
 
-.profile-mode {
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-  color: inherit;
-  cursor: pointer;
+// Quarto's own title row: the duplicate name is hidden; its light/dark
+// toggle is lifted to the top right of the sidebar, level with the photo.
+#quarto-sidebar .sidebar-header {
+  position: absolute;
+  top: 0.6rem;
+  right: 1.25rem;
+  margin: 0 !important;
+  padding: 0 !important;
 
-  &:hover { color: $tufte-ink; }
+  @media (min-width: 992px) { top: 2.6rem; }
 }
 
-// The label names the mode it switches to.
-body.quarto-light .profile-mode .to-light,
-body.quarto-dark .profile-mode .to-dark { display: none; }
+#quarto-sidebar .sidebar-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0;
 
-// Quarto's own title row (duplicate name and its icon toggle) is replaced
-// by the profile block and the switch above.
-#quarto-sidebar .sidebar-header { display: none !important; }
+  > a { display: none; }
+  .sidebar-tools-main { margin: 0 !important; padding: 0; }
+}
+
+.quarto-color-scheme-toggle {
+  color: $tufte-muted !important;
+  padding: 0 !important;
+  line-height: 1;
+  opacity: 0.7;
+
+  &:hover { opacity: 1; }
+}
 
 // Navigation: other pages in grey, the current page in the text colour.
 #quarto-sidebar .sidebar-menu-container {
