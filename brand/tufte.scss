@@ -18,11 +18,12 @@ $code-bg: transparent;
 
 // Brand palette (from _brand.yml). These are only defined once the brand
 // layer has been compiled, so they are aliased here rather than in defaults.
-$tufte-ink: $brand-ink;
-$tufte-paper: $brand-paper;
-$tufte-muted: $brand-muted;
-$tufte-rule: $brand-rule;
-$tufte-red: $brand-tufte-red;
+// brand/tufte-dark.scss sets these first for the dark theme.
+$tufte-ink: $brand-ink !default;
+$tufte-paper: $brand-paper !default;
+$tufte-muted: $brand-muted !default;
+$tufte-rule: $brand-rule !default;
+$tufte-red: $brand-tufte-red !default;
 
 body {
   font-family: $tufte-serif;
@@ -386,13 +387,4 @@ h2.anchored, h3.anchored, h4.anchored {
   a { color: inherit; }
 }
 
-@media (max-width: 767.98px) {
-  .nav-footer-right { text-align: center; }
-}
 
-.footer-tadpole {
-  color: $tufte-muted;
-
-  svg { display: inline-block; height: 1.9rem; width: auto; }
-  .accent { fill: $tufte-red; }
-}

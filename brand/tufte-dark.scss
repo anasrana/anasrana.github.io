@@ -1,0 +1,11 @@
+// Dark theme: the Tufte palette swapped for its dark counterparts from
+// _brand.yml. Listed before tufte.scss in _quarto.yml, so these values win
+// over the !default light ones there.
+
+/*-- scss:rules --*/
+
+$tufte-ink: $brand-ink-dark;
+$tufte-paper: $brand-paper-dark;
+$tufte-muted: $brand-muted-dark;
+$tufte-rule: $brand-rule-dark;
+$tufte-red: $brand-tufte-red-dark;

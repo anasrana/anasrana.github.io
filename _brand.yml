@@ -12,8 +12,18 @@ color:
     muted: "#5e5e5a"      # secondary text: captions, dates, inactive nav (6.5:1 on paper, WCAG AA)
     rule: "#d8d8cf"       # thin rules
     tufte-red: "#a51c1c"  # opening phrases (.newthought), as in Tufte's books (7.5:1 on paper)
-  foreground: ink
-  background: paper
+    # Dark mode (palette entries cannot have light/dark variants, so they are separate names).
+    ink-dark: "#e6e6de"        # 14.6:1 on paper-dark
+    paper-dark: "#151513"
+    muted-dark: "#a3a39b"      # 7.2:1
+    rule-dark: "#3a3a36"
+    tufte-red-dark: "#d2685f"  # 5.1:1, WCAG AA
+  foreground:
+    light: ink
+    dark: ink-dark
+  background:
+    light: paper
+    dark: paper-dark
   primary: ink
   secondary: muted
 
