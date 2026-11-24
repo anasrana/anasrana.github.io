@@ -18,14 +18,21 @@ color:
     muted-dark: "#a3a39b"      # 7.2:1
     rule-dark: "#3a3a36"
     tufte-red-dark: "#d2685f"  # 5.1:1, WCAG AA
+    # Code: numbers (other code colours reuse the palette above).
+    code-orange: "#a8501a"       # 5.1:1 on the light code panel
+    code-orange-dark: "#d98c4e"  # 6.4:1 on the dark code panel
   foreground:
     light: ink
     dark: ink-dark
   background:
     light: paper
     dark: paper-dark
-  primary: ink
-  secondary: muted
+  primary:
+    light: ink
+    dark: ink-dark
+  secondary:
+    light: muted
+    dark: muted-dark
 
 typography:
   fonts:
@@ -41,14 +48,29 @@ typography:
         - path: brand/fonts/et-book/et-book-bold.woff2
           weight: 700
           style: normal
+    - family: IBM Plex Mono
+      source: file
+      files:
+        - path: brand/fonts/ibm-plex-mono/ibm-plex-mono-400-normal.woff2
+          weight: 400
+          style: normal
+        - path: brand/fonts/ibm-plex-mono/ibm-plex-mono-400-italic.woff2
+          weight: 400
+          style: italic
   base:
     family: ET Book
     size: 1.0625rem  # 17px
     line-height: 1.5
+  monospace:
+    family: IBM Plex Mono
   headings:
     family: ET Book
     weight: 400
-    color: ink
+    color:
+      light: ink
+      dark: ink-dark
   link:
-    color: ink
+    color:
+      light: ink
+      dark: ink-dark
     decoration: underline

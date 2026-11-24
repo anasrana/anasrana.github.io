@@ -24,6 +24,8 @@ $tufte-paper: $brand-paper !default;
 $tufte-muted: $brand-muted !default;
 $tufte-rule: $brand-rule !default;
 $tufte-red: $brand-tufte-red !default;
+$tufte-orange: $brand-code-orange !default;
+$tufte-code-bg: #f8f8ef !default; // a faint tint of the paper
 
 body {
   font-family: $tufte-serif;
@@ -221,7 +223,7 @@ table {
   }
 }
 
-// Code: monospace, slightly smaller, a thin left rule instead of a box.
+// Code: IBM Plex Mono (from _brand.yml), slightly smaller than the text.
 code {
   font-size: 0.85em;
   color: $tufte-ink;
@@ -229,12 +231,13 @@ code {
   padding: 0;
 }
 
+// Code blocks: a faintly tinted panel, the language named in the margin
+// (brand/tufte.lua wraps each block in .code-lang with data-lang).
 div.sourceCode {
-  background-color: transparent;
+  background-color: $tufte-code-bg;
   border: none;
-  border-left: 1px solid $tufte-rule;
   border-radius: 0;
-  padding-left: 1rem;
+  padding: 0.6rem 0.9rem;
 }
 
 div.sourceCode pre.sourceCode,
@@ -242,17 +245,60 @@ pre:not(.mermaid-js) {
   background-color: transparent;
   border: none;
   border-radius: 0;
+  margin-bottom: 0;
 }
 
 pre:not(.sourceCode):not(.mermaid-js) {
-  border-left: 1px solid $tufte-rule;
-  padding-left: 1rem;
+  background-color: $tufte-code-bg;
+  padding: 0.6rem 0.9rem;
 }
 
 pre code,
 div.sourceCode code {
   font-size: 0.8em;
-  line-height: 1.45;
+  line-height: 1.5;
+}
+
+.code-lang {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &::after {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.55rem;
+    left: calc(100% + 1.5rem);
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    color: $tufte-muted;
+    white-space: nowrap;
+  }
+
+  // No margin column on narrow screens: put the label inside the panel.
+  @media (max-width: 991.98px) {
+    &::after { left: auto; right: 0.6rem; top: 0.3rem; font-size: 0.75rem; }
+    > div.sourceCode { padding-top: 1.4rem; }
+  }
+
+  > div.sourceCode { margin-bottom: 0; }
+}
+
+// Syntax colours: text colour throughout, functions red, strings grey,
+// numbers orange, comments grey italic. These replace Quarto's
+// highlighting theme so light and dark both use the site palette.
+div.sourceCode pre code span {
+  color: $tufte-ink;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+div.sourceCode pre code {
+  span.fu, span.bu { color: $tufte-red; }
+  span.st, span.ch, span.ss, span.vs, span.sc { color: $tufte-muted; }
+  span.dv, span.fl, span.cn, span.bn { color: $tufte-orange; }
+  span.co, span.do, span.an, span.cv, span.in, span.wa { color: $tufte-muted; font-style: italic; }
 }
 
 // Bold is rare in Tufte text; keep it available but not heavy.

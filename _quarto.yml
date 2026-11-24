@@ -22,6 +22,7 @@ format:
       dark: [brand, brand/tufte-dark.scss, brand/tufte.scss]
     respect-user-color-scheme: true
     toc: false
+    code-copy: false
     include-in-header: brand/icons.html
     filters:
       - brand/tufte.lua

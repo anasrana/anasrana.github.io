@@ -6,6 +6,7 @@
 --   3. A Markdown rule (***) becomes a centred tadpole section break.
 --   4. A block quote that opens with a quotation mark hangs that mark
 --      outside the text edge.
+--   5. Code blocks are labelled with their language (shown in the margin).
 
 local tadpole
 
@@ -68,6 +69,22 @@ local function hang_first_quote(bq)
   return bq
 end
 
+-- 5. Code blocks name their language in the margin ----------------------------
+
+local languages = {
+  r = "R", python = "Python", bash = "Shell", sh = "Shell", shell = "Shell",
+  julia = "Julia", sql = "SQL", yaml = "YAML", json = "JSON", latex = "LaTeX",
+  tex = "LaTeX", cpp = "C++", c = "C", js = "JavaScript", javascript = "JavaScript",
+  html = "HTML", css = "CSS", markdown = "Markdown", md = "Markdown", stan = "Stan",
+}
+
+local function label_code(el)
+  local lang = el.classes[1]
+  if not lang then return nil end
+  local name = languages[lang:lower()] or lang
+  return pandoc.Div({ el }, pandoc.Attr("", { "code-lang" }, { ["data-lang"] = name }))
+end
+
 -- 2 and 3. Tadpole marks ------------------------------------------------------
 
 local function append_endmark(blocks)
@@ -95,6 +112,7 @@ function Pandoc(doc)
 
   doc.blocks = doc.blocks:walk(acronyms)
   doc.blocks = doc.blocks:walk({ BlockQuote = hang_first_quote })
+  doc.blocks = doc.blocks:walk({ CodeBlock = label_code })
 
   if tadpole then
     doc.blocks = doc.blocks:walk({
