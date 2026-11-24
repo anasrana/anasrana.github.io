@@ -3,6 +3,8 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
+  resources:
+    - brand/logo/
 
 website:
   title: "Anas A Rana"
@@ -12,3 +14,4 @@ format:
   html:
     theme: [brand, brand/tufte.scss]
     toc: false
+    include-in-header: brand/icons.html
