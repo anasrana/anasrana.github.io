@@ -448,6 +448,26 @@ h2.anchored, h3.anchored, h4.anchored {
     border-right: 1px solid $tufte-rule;
     padding-right: 1.25rem;
   }
+
+  // Anchor the layout to the left edge. Quarto centres the floating-sidebar
+  // grid with flexible columns on both sides; here the sidebar, body and
+  // margin keep their widths from the left and spare width goes to the
+  // right. Same widths as `grid` in _quarto.yml.
+  body.floating .page-columns,
+  body.floating.fullcontent .page-columns,
+  body.floating.slimcontent .page-columns,
+  body.floating.listing .page-columns {
+    grid-template-columns:
+      [screen-start] 2.5rem
+      [screen-start-inset page-start page-start-inset body-start-outset] 210px
+      [body-start] 2.5rem
+      [body-content-start] minmax(450px, 620px)
+      [body-content-end] 2.5rem
+      [body-end body-end-outset] minmax(150px, 230px)
+      [page-end-inset page-end] 1fr
+      [screen-end-inset] 1.5rem
+      [screen-end];
+  }
 }
 
 .profile {
