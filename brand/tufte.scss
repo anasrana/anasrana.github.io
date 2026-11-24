@@ -43,15 +43,17 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1.2;
 }
 
+// Heading sizes are in em of the body text, so changing the base size in
+// _brand.yml rescales them.
 h1, .h1, #title-block-header .title {
-  font-size: 2.4rem;
+  font-size: 2em;
   font-style: normal;
   margin-top: 0.5rem;
   margin-bottom: 1.25rem;
 }
 
 h2, .h2 {
-  font-size: 1.75rem;
+  font-size: 1.47em;
   font-style: italic;
   margin-top: 2.25rem;
   margin-bottom: 0.75rem;
@@ -60,14 +62,14 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-size: 1.4rem;
+  font-size: 1.16em;
   font-style: italic;
   margin-top: 1.75rem;
   margin-bottom: 0.5rem;
 }
 
 h4, h5, h6 {
-  font-size: 1.2rem;
+  font-size: 1em;
   font-style: italic;
 }
 
@@ -142,7 +144,7 @@ blockquote,
 aside,
 div.footnotes,
 .footnotes {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.35;
   color: $tufte-ink;
 }
@@ -171,7 +173,7 @@ figcaption,
 .quarto-float-caption,
 .table-caption,
 caption {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.35;
   color: $tufte-muted;
   font-style: normal;
@@ -277,4 +279,120 @@ ul, ol {
 
 ::selection {
   background: rgba($tufte-red, 0.15);
+}
+
+
+// House-style details. Items 1-4 are produced by brand/tufte.lua.
+
+// 1. Acronyms in small caps (synthesised: ET Book has no true small caps).
+.acronym {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.04em;
+}
+
+// 2. The tadpole closes the last paragraph of a page.
+.endmark {
+  color: $tufte-muted;
+  white-space: nowrap;
+
+  svg { display: inline; height: 1.9em; width: auto; vertical-align: -0.62em; margin-left: 0.1em; }
+  .accent { fill: $tufte-red; }
+}
+
+// 3. Section break: a centred tadpole instead of a rule.
+.section-break {
+  color: $tufte-muted;
+  text-align: center;
+  margin: 0.75rem 0;
+
+  svg { display: inline-block; height: 2.6rem; width: auto; }
+  .accent { fill: $tufte-red; }
+}
+
+// 4. Hanging opening quotation mark in block quotes.
+.hang-quote {
+  margin-left: -0.42em;
+}
+
+// 5. News dates in italic; the newest item carries a small red dot.
+// For the news listing template (Phase 4).
+.news-date {
+  font-style: italic;
+  color: $tufte-muted;
+}
+
+.news-latest .news-date::after {
+  content: "";
+  display: inline-block;
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.4em;
+  border-radius: 50%;
+  background: $tufte-red;
+  vertical-align: 0.12em;
+}
+
+// 7. Section links: a small red dot hanging to the left of the heading on
+// hover (Quarto adds the links with AnchorJS; this only restyles them).
+h2.anchored, h3.anchored, h4.anchored {
+  position: relative;
+}
+
+.anchored > .anchorjs-link {
+  position: absolute;
+  left: -0.9em;
+  right: auto;
+  top: 0.1em;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-decoration: none;
+  color: $tufte-red;
+  font-style: normal;
+
+  &::after {
+    content: "" !important;
+    display: inline-block;
+    width: 0.28em;
+    height: 0.28em;
+    border-radius: 50%;
+    background: $tufte-red;
+    vertical-align: 0.3em;
+  }
+}
+
+// 9. 404 page: the frog's leap.
+.leap {
+  color: $tufte-muted;
+  margin: 1rem 0 1.5rem;
+
+  svg { display: block; width: 100%; max-width: 24rem; height: auto; }
+  .accent { fill: $tufte-red; }
+}
+
+// Footer: name and institution, then the colophon in a quieter italic line.
+.nav-footer {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: $tufte-muted;
+  background: transparent;
+  border-top: 1px solid $tufte-rule;
+  min-height: 0;
+  padding-top: 0.6rem;
+  padding-bottom: 1.5rem;
+
+  .nav-footer-left, .nav-footer-right { color: $tufte-muted; }
+  p { margin: 0; }
+  em { font-style: italic; }
+  a { color: inherit; }
+}
+
+@media (max-width: 767.98px) {
+  .nav-footer-right { text-align: center; }
+}
+
+.footer-tadpole {
+  color: $tufte-muted;
+
+  svg { display: inline-block; height: 1.9rem; width: auto; }
+  .accent { fill: $tufte-red; }
 }

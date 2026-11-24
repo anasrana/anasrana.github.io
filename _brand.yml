@@ -33,7 +33,7 @@ typography:
           style: normal
   base:
     family: ET Book
-    size: 1.2rem
+    size: 1.0625rem  # 17px
     line-height: 1.5
   headings:
     family: ET Book
