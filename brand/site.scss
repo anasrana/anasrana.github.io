@@ -1,0 +1,246 @@
+// Homepage-only rules: the profile sidebar (Option B) and the narrow-screen
+// menu bar with the compact profile line. Layered after the shared Tufte
+// stylesheet from the tufte-brand extension (_extensions/anasrana/tufte-brand),
+// so the $tufte-* variables are already set.
+
+/*-- scss:rules --*/
+
+// Sidebar (Option B), from _profile.yml via brand/profile.lua: photo, name
+// and title (light/dark toggle at the top right); the navigation straight
+// after; contact links anchored to the bottom in small grey capitals.
+#quarto-sidebar {
+  font-family: $tufte-serif;
+  color: $tufte-ink;
+  background: transparent;
+}
+
+@media (min-width: 992px) {
+  #quarto-sidebar {
+    border-right: 1px solid $tufte-rule;
+    padding-right: 1.25rem;
+    // Full viewport height, so the footer (links) can sit at the bottom.
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-height: 100vh;
+    padding-bottom: 1.5rem;
+  }
+
+  #quarto-sidebar .quarto-sidebar-footer { margin-top: auto; }
+
+  // Anchor the layout to the left edge. Quarto centres the floating-sidebar
+  // grid with flexible columns on both sides; here the sidebar, body and
+  // margin keep their widths from the left and spare width goes to the
+  // right. Same widths as `grid` in _quarto.yml.
+  body.floating .page-columns,
+  body.floating.fullcontent .page-columns,
+  body.floating.slimcontent .page-columns,
+  body.floating.listing .page-columns {
+    grid-template-columns:
+      [screen-start] 2.5rem
+      [screen-start-inset page-start page-start-inset body-start-outset] 210px
+      [body-start] 2.5rem
+      [body-content-start] minmax(450px, 620px)
+      [body-content-end] 2.5rem
+      [body-end body-end-outset] minmax(150px, 230px)
+      [page-end-inset page-end] 1fr
+      [screen-end-inset] 1.5rem
+      [screen-end];
+  }
+}
+
+.profile {
+  padding-top: 0.5rem;
+
+  a { text-decoration: none; color: inherit; }
+}
+
+.profile-photo img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.9rem;
+}
+
+.profile-name {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0 0 0.35rem;
+  white-space: nowrap;
+}
+
+// The frog: cap height, standing on the baseline of the name.
+.profile-logo {
+  color: $tufte-muted;
+
+  svg { display: inline; height: 0.72em; width: auto; vertical-align: -0.03em; margin-right: 0.3em; }
+  .accent { fill: $tufte-red; }
+}
+
+.profile-role {
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: $tufte-muted;
+  margin: 0;
+}
+
+// Contact links: small capitals in dark grey.
+.quarto-sidebar-footer { padding-top: 1.5rem; }
+
+.profile-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $tufte-muted;
+
+  li { margin: 0; }
+
+  a {
+    color: $tufte-muted;
+    text-decoration: none;
+
+    &:hover { color: $tufte-ink; }
+  }
+}
+
+// Links still to be supplied (href "TODO..." in _profile.yml).
+.profile-todo {
+  opacity: 0.55;
+  cursor: help;
+}
+
+// Quarto's own title row: the duplicate name is hidden; its light/dark
+// toggle is lifted to the top right of the sidebar, level with the photo.
+#quarto-sidebar .sidebar-header {
+  position: absolute;
+  top: 0.6rem;
+  right: 1.25rem;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  @media (min-width: 992px) { top: 2.6rem; }
+}
+
+#quarto-sidebar .sidebar-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0;
+
+  > a { display: none; }
+  .sidebar-tools-main { margin: 0 !important; padding: 0; }
+}
+
+.quarto-color-scheme-toggle {
+  color: $tufte-muted !important;
+  padding: 0 !important;
+  line-height: 1;
+  opacity: 0.7;
+
+  &:hover { opacity: 1; }
+}
+
+// Navigation: other pages in grey, the current page in the text colour.
+#quarto-sidebar .sidebar-menu-container {
+  padding-top: 0.6rem !important;
+  padding-right: 0 !important;
+
+  ul { margin-top: 0 !important; }
+
+  .sidebar-item { margin: 0; }
+
+  .sidebar-link {
+    color: $tufte-muted;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding: 0;
+    text-decoration: none;
+
+    &:hover { color: $tufte-ink; }
+
+    &.active {
+      color: $tufte-ink;
+      font-weight: 400;
+    }
+
+    // Keep "CV" as capitals among title-case menu items.
+    .acronym { font-variant-caps: normal; letter-spacing: 0; }
+  }
+}
+
+// Narrow screens: Quarto's bar becomes a thin rule with an italic "menu"
+// button (it hides on scroll down and returns on scroll up), and a compact
+// profile line sits above the page title.
+.mobile-profile { display: none; }
+
+@media (max-width: 991.98px) {
+  #quarto-header {
+    background: $tufte-paper;
+    border-bottom: 1px solid $tufte-rule;
+  }
+
+  .quarto-secondary-nav {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+
+    .quarto-page-breadcrumbs { display: none !important; }
+
+    .quarto-btn-toggle {
+      order: 2;
+      margin-left: auto;
+      padding: 0.1rem 0;
+      color: $tufte-muted;
+      font-family: $tufte-serif;
+      font-style: italic;
+      font-size: 0.95rem;
+
+      .bi { display: none; }
+      &::after { content: "menu"; }
+    }
+  }
+
+  .mobile-profile {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 0.25rem 0 1.25rem;
+
+    a { color: inherit; text-decoration: none; }
+
+    img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; display: block; }
+
+    p { margin: 0; }
+  }
+
+  .mobile-name { font-size: 1.15rem; line-height: 1.2; white-space: nowrap; }
+
+  .mobile-links {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: $tufte-muted;
+
+    a {
+      text-decoration: underline !important;
+      text-decoration-thickness: 1px !important;
+      text-underline-offset: 0.15em;
+      text-decoration-color: rgba($tufte-ink, 0.35) !important;
+      color: $tufte-ink;
+    }
+  }
+
+  // The sidebar, when opened from the menu, sits on the paper colour.
+  #quarto-sidebar.show, #quarto-sidebar.collapsing {
+    background: $tufte-paper;
+    padding-right: 1.25rem;
+    border-right: 1px solid $tufte-rule;
+  }
+}

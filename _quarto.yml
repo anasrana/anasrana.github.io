@@ -3,8 +3,6 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-  resources:
-    - brand/logo/
 
 website:
   title: "Anas A Rana"
@@ -39,11 +37,14 @@ shortcodes:
   - brand/profile.lua
 
 format:
-  html:
+  # Brand (_brand.yml), Tufte stylesheet, dark palette, house-style filter,
+  # light/dark switching and no copy button all come from the shared
+  # extension (_extensions/anasrana/tufte-brand, repo anasrana/quarto-aar-brand).
+  # brand/site.scss adds the homepage's profile sidebar on top.
+  tufte-brand-html:
     theme:
-      light: [brand, brand/tufte.scss]
-      dark: [brand, brand/tufte-dark.scss, brand/tufte.scss]
-    respect-user-color-scheme: true
+      light: [brand/site.scss]
+      dark: [brand/site.scss]
     toc: false
     page-layout: article
     # Columns at 17px text: sidebar, body about 36em, margin about 13em.
@@ -52,9 +53,6 @@ format:
       body-width: 620px
       margin-width: 230px
       gutter-width: 2rem
-    code-copy: false
     include-in-header: brand/icons.html
     template-partials:
       - brand/title-block.html
-    filters:
-      - brand/tufte.lua
