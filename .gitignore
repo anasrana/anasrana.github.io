@@ -9,5 +9,7 @@
 
 **/*.quarto_ipynb
 
-# Working notes, kept local only
+# Working notes and assistant files, kept local only
 /todo.md
+/CLAUDE.md
+/.claude/
