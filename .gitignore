@@ -8,3 +8,6 @@
 /.luarc.json
 
 **/*.quarto_ipynb
+
+# Working notes, kept local only
+/todo.md
