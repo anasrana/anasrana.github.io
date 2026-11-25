@@ -1,0 +1,21 @@
+title: Tufte brand
+author: Anas A Rana
+version: 0.1.0
+quarto-required: ">=1.11.0"
+contributes:
+  # Sets `brand:` for the whole project, so _brand.yml (fonts, colours) applies
+  # without a _brand.yml in the project folder. Font paths are relative to here.
+  metadata:
+    project:
+      brand: _brand.yml
+  # Use as `format: tufte-brand-html`. A project adds its own stylesheet with
+  # `theme: light: [x.scss]` / `dark: [x.scss]`; those layers come after these,
+  # so they can use the $tufte-* variables.
+  formats:
+    html:
+      theme:
+        light: [brand, tufte.scss]
+        dark: [brand, tufte-dark.scss, tufte.scss]
+      respect-user-color-scheme: true
+      code-copy: false
+      filters: [tufte.lua]

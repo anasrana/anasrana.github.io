@@ -1,0 +1,76 @@
+# Brand: fonts and colours shared by the homepage, the EMS practicals book
+# and (later) lecture slides. Tufte-specific rules live in tufte.scss.
+# Schema: https://posit-dev.github.io/brand-yml/
+
+meta:
+  name: Anas A Rana
+
+color:
+  palette:
+    ink: "#111111"        # body text
+    paper: "#fffff8"      # Tufte off-white
+    muted: "#5e5e5a"      # secondary text: captions, dates, inactive nav (6.5:1 on paper, WCAG AA)
+    rule: "#d8d8cf"       # thin rules
+    tufte-red: "#a51c1c"  # opening phrases (.newthought), as in Tufte's books (7.5:1 on paper)
+    # Dark mode (palette entries cannot have light/dark variants, so they are separate names).
+    ink-dark: "#e6e6de"        # 14.6:1 on paper-dark
+    paper-dark: "#151513"
+    muted-dark: "#a3a39b"      # 7.2:1
+    rule-dark: "#3a3a36"
+    tufte-red-dark: "#d2685f"  # 5.1:1, WCAG AA
+    # Code: numbers (other code colours reuse the palette above).
+    code-orange: "#a8501a"       # 5.1:1 on the light code panel
+    code-orange-dark: "#d98c4e"  # 6.4:1 on the dark code panel
+  foreground:
+    light: ink
+    dark: ink-dark
+  background:
+    light: paper
+    dark: paper-dark
+  primary:
+    light: ink
+    dark: ink-dark
+  secondary:
+    light: muted
+    dark: muted-dark
+
+typography:
+  fonts:
+    - family: ET Book
+      source: file
+      files:
+        - path: fonts/et-book/et-book-roman.woff2
+          weight: 400
+          style: normal
+        - path: fonts/et-book/et-book-italic.woff2
+          weight: 400
+          style: italic
+        - path: fonts/et-book/et-book-bold.woff2
+          weight: 700
+          style: normal
+    - family: IBM Plex Mono
+      source: file
+      files:
+        - path: fonts/ibm-plex-mono/ibm-plex-mono-400-normal.woff2
+          weight: 400
+          style: normal
+        - path: fonts/ibm-plex-mono/ibm-plex-mono-400-italic.woff2
+          weight: 400
+          style: italic
+  base:
+    family: ET Book
+    size: 1.0625rem  # 17px
+    line-height: 1.5
+  monospace:
+    family: IBM Plex Mono
+  headings:
+    family: ET Book
+    weight: 400
+    color:
+      light: ink
+      dark: ink-dark
+  link:
+    color:
+      light: ink
+      dark: ink-dark
+    decoration: underline
